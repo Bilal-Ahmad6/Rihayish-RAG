@@ -142,9 +142,7 @@ venv/
 logs/
 *.log
 
-# Database files
-*.db
-*.sqlite3
+
 # chromadb_data/  # (Uncomment to ignore vector DB again.)
 # Including Chroma persistence in Git for deployment. Keep size reasonable (<100MB per file).
 
