@@ -1,0 +1,187 @@
+:root {
+  --transition-fast: 200ms ease-in-out;
+  --radius-md: 12px;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --side-gap: 48px; /* uniform horizontal distance (s) from viewport/chat edges */
+  --bg: #202020;
+  --bg-alt: #2A2A2A;
+  --text: #FFFFFF;
+  --bubble-user: #2B2C36;
+  --bubble-assistant: transparent;
+}
+
+body {
+  margin:0;
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  display:flex;
+  flex-direction:column;
+  height:100vh;
+  overflow:visible;
+}
+
+.layout { 
+  display:flex; 
+  flex-direction:column; 
+  height:100%; 
+}
+
+.main { 
+  flex:1; 
+  display:flex; 
+  flex-direction:column; 
+  position:relative; 
+}
+
+.floating-brand {
+  position: fixed;
+  top: 5px;
+  left: 20px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.brand-logo {
+  width: 72px;
+  height: 64px;
+  margin-right: 8px;
+}
+
+.brand-name {
+  font-size: 26px;
+  font-weight: 600;
+  color: #F5F0E1;
+}
+
+.chat-scroll {
+  flex:1;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding:20px;
+  scroll-behavior:smooth;
+  height:100vh;
+  padding-top: 80px; /* Add space for floating brand */
+}
+
+.chat-inner {
+  max-width:900px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  padding-bottom:120px;
+}
+
+.message-row {
+  display:flex;
+  width:100%;
+  padding:0; /* spacing now handled by bubble margins */
+}
+
+.message-row.user { 
+  justify-content:flex-end; 
+}
+
+.message-row.assistant { 
+  justify-content:flex-start; 
+}
+
+.bubble {
+  padding:10px 16px;
+  border-radius:16px;
+  font-size:15px;
+  line-height:1.5;
+  /* bubble width limited so both sides appear balanced */
+  max-width: min(680px, calc(100% - (var(--side-gap) * 2)));
+  white-space:pre-wrap;
+  word-wrap:break-word;
+  overflow-wrap:break-word;
+}
+
+.user .bubble {
+  background: var(--bubble-user);
+  color: var(--text);
+  text-align: left;
+  border: none;
+  box-shadow: none;
+  margin-left:auto;
+  margin-right: var(--side-gap);
+}
+
+/* Assistant bubble aligned to left & blending with background */
+.assistant .bubble {
+  background: var(--bubble-assistant);
+  color: var(--text);
+  text-align: left;
+  border: none;
+  box-shadow: none;
+  margin-left: var(--side-gap);
+  margin-right:auto;
+}
+
+/* More spacing between listings */
+.assistant .bubble div[style*="Property Listings"] > div {
+  margin-bottom: 40px !important;
+}
+
+.floating-input-wrapper {
+  position:fixed;
+  bottom:20px;
+  left:0;
+  right:0;
+  display:flex;
+  justify-content:center;
+  pointer-events:none;
+}
+
+.floating-input {
+  background: var(--bg-alt);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius:24px;
+  padding:8px 12px;
+  display:flex;
+  gap:8px;
+  width:90%;
+  max-width:800px;
+  pointer-events:auto;
+  align-items:center;
+}
+
+textarea {
+  flex:1;
+  background:transparent;
+  border:none;
+  resize:none;
+  font-size:15px;
+  color: var(--text);
+  outline:none;
+}
+
+.send-btn {
+  background:white;
+  border:none;
+  border-radius:50%;
+  width:36px;
+  height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  padding:0;
+  transition: background var(--transition-fast);
+}
+
+.send-btn:hover { 
+  background:#e5e5e5; 
+}
+
+.send-btn svg {
+  width:16px;
+  height:16px;
+  stroke:black;
+  stroke-width:2;
+  fill:none;
+}

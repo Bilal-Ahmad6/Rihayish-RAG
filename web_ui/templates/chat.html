@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rihayish Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="layout">
+    <main class="main">
+      <div class="chat-scroll" id="chatScroll">
+        <div class="floating-brand">
+          <img src="/static/logo.svg" alt="Rihayish Logo" class="brand-logo">
+          <span class="brand-name">Rihayish</span>
+        </div>
+        <div class="chat-inner" id="chatInner"></div>
+      </div>
+      <div class="floating-input-wrapper">
+        <div class="floating-input">
+          <textarea id="messageInput" placeholder="Send a message" rows="1"></textarea>
+          <button id="sendBtn" class="send-btn">
+            <svg viewBox="0 0 24 24">
+              <line x1="12" y1="19" x2="12" y2="5"/>
+              <polyline points="5 12 12 5 19 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

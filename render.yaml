@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: property-guru-rag
+    env: python
+    plan: free
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -c gunicorn.conf.py web_ui.app:app
+    autoDeploy: true
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GRAANA_GEMINI_API_KEY
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: 3.11.9
+    disk:
+      name: vector-data
+      mountPath: /opt/render/project/src/chromadb_data
+      sizeGB: 1
+    healthCheckPath: /health
+
+  # Optional worker for periodic scraping / embeddings (uncomment & adjust as needed)
+  # - type: worker
+  #   name: property-guru-rag-worker
+  #   env: python
+  #   plan: free
+  #   buildCommand: pip install -r requirements.txt
+  #   startCommand: python scripts/scrape_listings.py --max-pages 1
+  #   autoDeploy: false
+  #   disk:
+  #     name: worker-vector-data
+  #     mountPath: /opt/render/project/src/chromadb_data
+  #     sizeGB: 1
