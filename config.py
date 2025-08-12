@@ -1,6 +1,35 @@
 from pathlib import Path
-from pydantic_settings import BaseSettings
 from pydantic import Field
+
+# Graceful import of BaseSettings so the app does not crash if pydantic_settings
+# was accidentally omitted from the environment. We still strongly recommend
+# having `pydantic-settings` installed (added back to requirements.txt). If it's
+# missing, we fall back to a lightweight shim that reads a .env file manually.
+try:  # pragma: no cover - runtime safeguard
+    from pydantic_settings import BaseSettings  # type: ignore
+except Exception:  # pragma: no cover
+    import os
+    import warnings
+    warnings.warn("pydantic_settings not installed; using fallback BaseSettings shim."
+                  " Install pydantic-settings for full features.")
+
+    class BaseSettings:  # minimal shim
+        def __init__(self, **kwargs):
+            # Load .env manually (very simple parser)
+            env_file = kwargs.pop('env_file', '.env') if 'env_file' in kwargs else '.env'
+            data = {}
+            if Path(env_file).exists():
+                for line in Path(env_file).read_text().splitlines():
+                    if not line or line.strip().startswith('#') or '=' not in line:
+                        continue
+                    k, v = line.split('=', 1)
+                    data[k.strip()] = v.strip().strip('"').strip("'")
+            # Merge environment variables
+            data.update(os.environ)
+            # Assign provided overrides
+            data.update(kwargs)
+            for field, value in data.items():
+                setattr(self, field.lower(), value)
 
 
 class Settings(BaseSettings):
