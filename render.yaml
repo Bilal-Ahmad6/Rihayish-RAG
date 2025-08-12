@@ -1,11 +1,9 @@
 services:
   - type: web
     name: property-guru-rag
-    env: python
+    env: docker
     plan: free
     region: oregon
-    buildCommand: pip install -r requirements.txt
-    startCommand: python -m gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 1 --timeout 180 --access-logfile - --error-logfile - web_ui.app:app
     autoDeploy: true
     envVars:
       - key: GEMINI_API_KEY
@@ -14,11 +12,11 @@ services:
         sync: false
       - key: SECRET_KEY
         generateValue: true
-      - key: PYTHON_VERSION
-        value: 3.11.9
+      - key: PORT
+        value: "10000"
     disk:
       name: vector-data
-      mountPath: /opt/render/project/src/chromadb_data
+      mountPath: /app/chromadb_data
       sizeGB: 1
     healthCheckPath: /health
 

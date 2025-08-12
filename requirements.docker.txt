@@ -1,0 +1,30 @@
+# Production Docker requirements - memory optimized
+# Core HTTP + parsing
+requests==2.32.3
+beautifulsoup4==4.12.3
+lxml==5.2.2
+
+# Web Framework
+Flask==3.0.0
+Werkzeug==3.0.1
+gunicorn>=21.2.0,<22.0.0
+
+# Embeddings + vector store
+sentence-transformers>=2.2.2,<3.0.0
+chromadb==1.0.15
+
+# Google Gemini
+google-generativeai>=0.7.0,<0.8.0
+
+# Settings/validation (minimal)
+pydantic>=2.8.2,<3.0.0
+
+# Env loading
+python-dotenv>=1.0.1,<2.0.0
+
+# Essential only - removed heavy optional dependencies:
+# - pandas (unless absolutely needed for data processing)
+# - FastAPI/uvicorn (using Flask only)
+# - LangChain (memory heavy)
+# - testing packages
+# - documentation packages
