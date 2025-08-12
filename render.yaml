@@ -12,8 +12,6 @@ services:
         sync: false
       - key: SECRET_KEY
         generateValue: true
-      - key: PORT
-        value: "10000"
     disk:
       name: vector-data
       mountPath: /app/chromadb_data
