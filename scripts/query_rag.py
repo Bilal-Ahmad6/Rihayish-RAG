@@ -30,57 +30,8 @@ _QUERY_CACHE: Dict[str, tuple] = {}
 _CACHE_MAX_SIZE = 100
 
 # Recently shown properties tracking for better variety
-_RECENTLY_SHOWN: List[str] = []
+_RECENTLY_SHOWN: List[str] = []  # (Legacy leftover; no longer used after reverting aggressive shuffle)
 _RECENTLY_SHOWN_MAX_SIZE = 50
-
-def apply_aggressive_variety_filter(properties: List[dict], max_recent_shown: int = 3) -> List[dict]:
-    """
-    Apply aggressive filtering to ensure maximum variety by deprioritizing recently shown properties
-    """
-    global _RECENTLY_SHOWN
-    
-    if not properties:
-        return properties
-    
-    # Separate properties into recently shown and fresh ones
-    fresh_properties = []
-    recent_properties = []
-    
-    for prop in properties:
-        property_id = prop.get('property_id') or prop.get('listing_id', '')
-        title = prop.get('title', '')
-        
-        # Create a unique identifier for this property
-        prop_identifier = f"{property_id}_{title[:30]}"
-        
-        if prop_identifier in _RECENTLY_SHOWN[-max_recent_shown:]:
-            recent_properties.append(prop)
-        else:
-            fresh_properties.append(prop)
-    
-    # Shuffle both groups aggressively
-    import time
-    random.seed(int(time.time() * 1000000) % 100000)  # More granular seed
-    random.shuffle(fresh_properties)
-    random.shuffle(recent_properties)
-    
-    # Prioritize fresh properties, add recent ones if needed
-    result = fresh_properties + recent_properties
-    
-    # Update recently shown list with the properties we're about to show
-    for prop in result[:5]:  # Only track the first 5 we'll show
-        property_id = prop.get('property_id') or prop.get('listing_id', '')
-        title = prop.get('title', '')
-        prop_identifier = f"{property_id}_{title[:30]}"
-        
-        if prop_identifier not in _RECENTLY_SHOWN:
-            _RECENTLY_SHOWN.append(prop_identifier)
-    
-    # Keep the recently shown list manageable
-    if len(_RECENTLY_SHOWN) > _RECENTLY_SHOWN_MAX_SIZE:
-        _RECENTLY_SHOWN = _RECENTLY_SHOWN[-_RECENTLY_SHOWN_MAX_SIZE:]
-    
-    return result
 
 # -----------------------------
 # Top-level helper functions (moved out of main so they are reusable
@@ -895,27 +846,21 @@ def title_based_search(processed_map: Dict[str, dict], search_terms: List[str], 
             # If sorting fails, return unsorted results
             pass
         
-        # Aggressive shuffling for variety - shuffle within score groups
-        if len(scored_properties) > 1:
-            import time
-            random.seed(int(time.time() * 1000) % 10000)
-            
-            # Group properties by score and shuffle within each group
-            score_groups = {}
-            for item in scored_properties:
-                score = item['score']
-                if score not in score_groups:
-                    score_groups[score] = []
-                score_groups[score].append(item)
-            
-            # Shuffle each score group independently
-            shuffled_properties = []
-            for score in sorted(score_groups.keys(), reverse=True):  # Highest scores first
-                group = score_groups[score]
-                random.shuffle(group)  # Shuffle within the score group
-                shuffled_properties.extend(group)
-            
-            scored_properties = shuffled_properties
+        # Keep ordering by score then price for relevance, but introduce mild variety:
+        # shuffle only within groups of identical score so relative relevance tiers preserved.
+        try:
+            i = 0
+            while i < len(scored_properties):
+                j = i + 1
+                base_score = scored_properties[i]['score'] if isinstance(scored_properties[i], dict) else None
+                while j < len(scored_properties) and isinstance(scored_properties[j], dict) and scored_properties[j]['score'] == base_score:
+                    j += 1
+                # Now range [i:j) shares the same score
+                if j - i > 1:
+                    random.shuffle(scored_properties[i:j])
+                i = j
+        except Exception:
+            pass  # On any issue, fallback silently to sorted order
         
         return [item['property'] for item in scored_properties]
     
@@ -1633,42 +1578,41 @@ def rag_infer(
             out["suggestions"] = suggestions
             return out
         
-        # Aggressive shuffling strategy for maximum variety
-        # 1. Apply variety filter to avoid recently shown properties
-        properties = apply_aggressive_variety_filter(properties)
-        
-        # 2. Shuffle with time-based seed for different results each time
-        import time
-        random.seed(int(time.time() * 1000000) % 100000)  # More granular seed
-        random.shuffle(properties)
-        
-        # 3. If we have many properties, randomly sample from different parts of the list
-        if len(properties) > 15:
-            # Take random samples from different quarters of the shuffled list
-            quarter_size = len(properties) // 4
-            quarters = [
-                properties[0:quarter_size],
-                properties[quarter_size:2*quarter_size],
-                properties[2*quarter_size:3*quarter_size],
-                properties[3*quarter_size:]
-            ]
-            
-            # Randomly sample from each quarter
-            sampled_properties = []
-            for quarter in quarters:
-                if quarter:
-                    sample_size = min(2, len(quarter))  # Take up to 2 from each quarter
-                    sampled_properties.extend(random.sample(quarter, sample_size))
-            
-            # Add some completely random picks
-            remaining = [p for p in properties if p not in sampled_properties]
-            if remaining:
-                extra_picks = min(3, len(remaining))
-                sampled_properties.extend(random.sample(remaining, extra_picks))
-            
-            # Final aggressive shuffle
-            random.shuffle(sampled_properties)
-            properties = sampled_properties
+        # Mild+ shuffling: keep very top result fixed, shuffle remainder of top-score group,
+        # then lightly shuffle remaining tail while preserving overall relevance tiers.
+        try:
+            if not filters.get('requested_count') and len(properties) > 3:
+                # Derive scores if available via helper (title_based_search produced ordered list by score).
+                # We don't have direct scores here, so approximate top-score group by identical title patterns / price closeness.
+                # Simpler heuristic: treat first 3 items that share same cleaned title tokens (ignoring numbers) as top group.
+                def norm_title(t: str) -> str:
+                    t = (t or '').lower()
+                    import re
+                    t = re.sub(r'\b(\d+|marla|house|for sale|rawalpindi|bahria|phase|sector|town|graana\.com|\|)\b','', t)
+                    t = re.sub(r'[^a-z]+',' ', t).strip()
+                    return t
+                base_norm = norm_title(properties[0].get('title',''))
+                top_group_end = 1
+                for idx in range(1, min(len(properties), 6)):
+                    if norm_title(properties[idx].get('title','')) == base_norm:
+                        top_group_end = idx + 1
+                    else:
+                        break
+                fixed = properties[0:1]
+                top_group_remainder = properties[1:top_group_end]
+                tail = properties[top_group_end:]
+                if len(top_group_remainder) > 1:
+                    random.shuffle(top_group_remainder)
+                # Light shuffle tail: only if reasonably large
+                if len(tail) > 2:
+                    # Shuffle a copy of tail but keep relative order for first two in tail for stability
+                    tail_head = tail[:2]
+                    tail_rest = tail[2:]
+                    random.shuffle(tail_rest)
+                    tail = tail_head + tail_rest
+                properties = fixed + top_group_remainder + tail
+        except Exception:
+            pass  # Fallback silently
         
         # Apply requested count limit with validation
         try:
