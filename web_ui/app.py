@@ -401,6 +401,9 @@ def message():
             # Handle new response format with listings
             if result.get('listings'):
                 meta['listings'] = result['listings']
+            # Forward price statistics if present
+            if result.get('price_stats'):
+                meta['price_stats'] = result['price_stats']
             
             # Attach extra metadata for compatibility
             meta.update({k: result.get(k) for k in ['mode', 'total_found', 'filters_applied'] if k in result})

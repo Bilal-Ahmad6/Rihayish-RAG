@@ -1,161 +1,16 @@
 {
-  "20250812210753239576": [
+  "20250813010203911650": [
     {
       "role": "user",
-      "content": "3 houses under 4 crore",
-      "ts": "2025-08-12T21:07:53.239576"
+      "content": "show me houses for sale in block ali",
+      "ts": "2025-08-13T01:02:03.911650"
     },
     {
       "role": "assistant",
-      "content": "I found 3 properties matching your criteria. Here are the 3 properties you requested: All properties match your criteria: under 4.0 crores, houses.",
-      "ts": "2025-08-12T21:07:53.253779",
+      "content": "I found 5 properties matching your criteria: All properties match your criteria: houses.",
+      "ts": "2025-08-13T01:02:03.938342",
       "meta": {
         "listings": [
-          {
-            "title": "990 Sqft House for sale in Bahria Town Phase 8, Rawalpindi | 1431625 | Graana.com",
-            "price": "1.06 Crore",
-            "bedrooms": 1,
-            "kitchens": null,
-            "description": "990 Sqft House for buy in Bahria Town Phase 8, Rawalpindi at 1.06 Crore with 2 beadrooms and 2 bathrooms. Visit Graana.com to call now.",
-            "url": "https://www.graana.com/property/990-sqft-house-sale-bahria-town-phase-8-rawalpindi-1431625/",
-            "images": [
-              "https://images.graana.com/images/original/10ed492406d5ca501db54ed4ad456b02",
-              "https://images.graana.com/images/original/e9afab59bcc9be248b5190e82e72a937",
-              "https://images.graana.com/images/original/595ec041bf147e3448c95d7c4ebf1e23"
-            ],
-            "property_id": "1431625",
-            "area": "990 Sqft",
-            "location": "Bahria Town Phase 8, Rawalpindi"
-          },
-          {
-            "title": "5 Marla House for sale in Bahria Town Phase 8, Rawalpindi | 1466169 | Graana.com",
-            "price": "1.1 Crore",
-            "bedrooms": 1,
-            "kitchens": null,
-            "description": "5 Marla House for buy in Bahria Town Phase 8, Rawalpindi at 1.1 Crore with 2 beadrooms and 1 bathroom. Visit Graana.com to call now.",
-            "url": "https://www.graana.com/property/5-marla-house-sale-bahria-town-phase-8-rawalpindi-1466169/",
-            "images": [
-              "https://images.graana.com/images/original/bbde6a8d1741836b39fd37b03597bfb8",
-              "https://images.graana.com/images/original/899919d91df7bddf1b39654e9432702c",
-              "https://images.graana.com/images/original/08b7a79b51fb845be3f648f47533f0f6",
-              "https://images.graana.com/images/original/6cb6b8a9ef209f03bf85f7067cbc1aef",
-              "https://images.graana.com/images/original/f34fc02597b20579fed2924682a87cf4",
-              "https://images.graana.com/images/original/f19e0308a7ed00b6d8509034d9b4e3b5"
-            ],
-            "property_id": "1466169",
-            "area": "5 Marla",
-            "location": "Bahria Town Phase 8, Rawalpindi"
-          },
-          {
-            "title": "5 Marla House for sale in Phase 8, Bahria Town, Sector M, Rawalpindi | 1467840 | Graana.com",
-            "price": "1.1 Crore",
-            "bedrooms": 3,
-            "kitchens": null,
-            "description": "5 Marla House for buy in Phase 8, Bahria Town, Sector M, Rawalpindi at 1.1 Crore with 3 beadrooms and 3 bathrooms. Visit Graana.com to call now.",
-            "url": "https://www.graana.com/property/5-marla-house-sale-phase-8,-bahria-town,-sector-m-rawalpindi-1467840/",
-            "images": [
-              "https://images.graana.com/images/original/931d2b54d50c6f85832ed0ee5e6c7018",
-              "https://images.graana.com/images/original/27dc409af51c37b855edd7a7b1f5d34b",
-              "https://images.graana.com/images/original/f8fc3a5298685b356823f2c50b260e84",
-              "https://images.graana.com/images/original/608a51340f6feca8855fb38ddd4bf668",
-              "https://images.graana.com/images/original/4184a8407b59e42f53da05a0550a6288",
-              "https://images.graana.com/images/original/eafcfd041ff6c5ba6e18d28d2ead4acf",
-              "https://images.graana.com/images/original/beb4d8751c63c5dc5e1e665c7e8142e8",
-              "https://images.graana.com/images/original/a97e406549be8826b1dd6c4e8f5fcd05",
-              "https://images.graana.com/images/original/2b949c29b6c19bf21526b29b4f4ac167",
-              "https://images.graana.com/images/original/d23e8fdd8440309250e14f4ce32771a0",
-              "https://images.graana.com/images/original/9d913f1145e8ae842c9213bbb10cbdb3",
-              "https://images.graana.com/images/original/179d783bc48ba58c1cfa794f78349fd3",
-              "https://images.graana.com/images/original/9e241cbf5096c00007a875835cc4f498",
-              "https://images.graana.com/images/original/1672fd3f942e227442b531a5cbbb58bc",
-              "https://images.graana.com/images/original/7efe90af9bd82107ac1b995a40ea4c71",
-              "https://images.graana.com/images/original/94cc7785fe37f7542df1008820c057bc",
-              "https://images.graana.com/images/original/74dd5818338e5d321ca8df6a9d1c402a",
-              "https://images.graana.com/images/original/249e75aa2352d058b60eaf37d05dc551"
-            ],
-            "property_id": "1467840",
-            "area": "5 Marla",
-            "location": "Bahria Town Phase 8, Rawalpindi"
-          }
-        ],
-        "mode": "search_results",
-        "total_found": 3,
-        "filters_applied": {
-          "max_price_crores": 4.0,
-          "property_type": "house",
-          "title_search_terms": [
-            "houses"
-          ],
-          "requested_count": 3
-        }
-      }
-    },
-    {
-      "role": "user",
-      "content": "more",
-      "ts": "2025-08-12T21:07:57.516669"
-    },
-    {
-      "role": "assistant",
-      "content": "I couldn't find any properties matching your criteria.\n\nYou might want to try:\n• Remove some filters to see more results\n• Try searching without specific location requirements\n• Ask me to show you all available properties",
-      "ts": "2025-08-12T21:07:58.203999",
-      "meta": {
-        "mode": "no_results"
-      }
-    },
-    {
-      "role": "user",
-      "content": "5 houses in ali block",
-      "ts": "2025-08-12T21:08:09.358479"
-    },
-    {
-      "role": "assistant",
-      "content": "I found 5 properties matching your criteria. Here are the 5 properties you requested: All properties match your criteria: houses.",
-      "ts": "2025-08-12T21:08:09.367718",
-      "meta": {
-        "listings": [
-          {
-            "title": "7 Marla House for sale in Bahria Town Phase 8, Block Ali, Rawalpindi | 1463915 | Graana.com",
-            "price": "3 Crore",
-            "bedrooms": 5,
-            "kitchens": null,
-            "description": "7 Marla House for buy in Bahria Town Phase 8, Block Ali, Rawalpindi at 3 Crore with 5 beadrooms and 5 bathrooms. Visit Graana.com to call now.",
-            "url": "https://www.graana.com/property/7-marla-house-sale-bahria-town-phase-8,-block-ali-rawalpindi-1463915/",
-            "images": [
-              "https://images.graana.com/images/original/7e548a2beb1d870c6bbb28a21381bb53",
-              "https://images.graana.com/images/original/ab7b89f9d47e9d66b9583636f1ac42aa",
-              "https://images.graana.com/images/original/39d5b7901544ccd16556cd9bf15ee26d",
-              "https://images.graana.com/images/original/17727b9c2387d6d33f32fcbd3695857c",
-              "https://images.graana.com/images/original/6a253de9bbb8f59b3ee3adecd0367b1d",
-              "https://images.graana.com/images/original/4b29d3a14fda8c6e8bae5d36dfb040b1",
-              "https://images.graana.com/images/original/6931ddad2c1f98b5de7cc057f4545220",
-              "https://images.graana.com/images/original/3c692fb3afab2b85ef08f8492eb9657b"
-            ],
-            "property_id": "1463915",
-            "area": "7 Marla",
-            "location": "not provided"
-          },
-          {
-            "title": "7 Marla House for sale in Bahria Town Phase 8, Block Ali, Rawalpindi | 1463910 | Graana.com",
-            "price": "3.2 Crore",
-            "bedrooms": 5,
-            "kitchens": null,
-            "description": "7 Marla House for buy in Bahria Town Phase 8, Block Ali, Rawalpindi at 3.2 Crore with 5 beadrooms and 5 bathrooms. Visit Graana.com to call now.",
-            "url": "https://www.graana.com/property/7-marla-house-sale-bahria-town-phase-8,-block-ali-rawalpindi-1463910/",
-            "images": [
-              "https://images.graana.com/images/original/ce313e67e183975cc7cf8eb6472b8750",
-              "https://images.graana.com/images/original/5a827ca14140935bd6ec82d894a6df6b",
-              "https://images.graana.com/images/original/28f12a6fb915178e652eaf61be77aae8",
-              "https://images.graana.com/images/original/498984404f03df90ee283a815fdb8b14",
-              "https://images.graana.com/images/original/add178341a166b7a63a7462850e0e90e",
-              "https://images.graana.com/images/original/d43d00ff519f702b9b39508d61963b0a",
-              "https://images.graana.com/images/original/d9658827ca6658c018427ffcae2f4d5b",
-              "https://images.graana.com/images/original/8b11e165ef4cef59941bc8ff8be930e6"
-            ],
-            "property_id": "1463910",
-            "area": "7 Marla",
-            "location": "not provided"
-          },
           {
             "title": "7 Marla House for sale in Bahria Town Phase 8, Block Ali, Rawalpindi | 1455886 | Graana.com",
             "price": "3.1 Crore",
@@ -185,6 +40,27 @@
             "location": "Bahria Town Phase 8, Rawalpindi"
           },
           {
+            "title": "7 Marla House for sale in Bahria Town Phase 8, Block Ali, Rawalpindi | 1463910 | Graana.com",
+            "price": "3.2 Crore",
+            "bedrooms": 5,
+            "kitchens": null,
+            "description": "7 Marla House for buy in Bahria Town Phase 8, Block Ali, Rawalpindi at 3.2 Crore with 5 beadrooms and 5 bathrooms. Visit Graana.com to call now.",
+            "url": "https://www.graana.com/property/7-marla-house-sale-bahria-town-phase-8,-block-ali-rawalpindi-1463910/",
+            "images": [
+              "https://images.graana.com/images/original/ce313e67e183975cc7cf8eb6472b8750",
+              "https://images.graana.com/images/original/5a827ca14140935bd6ec82d894a6df6b",
+              "https://images.graana.com/images/original/28f12a6fb915178e652eaf61be77aae8",
+              "https://images.graana.com/images/original/498984404f03df90ee283a815fdb8b14",
+              "https://images.graana.com/images/original/add178341a166b7a63a7462850e0e90e",
+              "https://images.graana.com/images/original/d43d00ff519f702b9b39508d61963b0a",
+              "https://images.graana.com/images/original/d9658827ca6658c018427ffcae2f4d5b",
+              "https://images.graana.com/images/original/8b11e165ef4cef59941bc8ff8be930e6"
+            ],
+            "property_id": "1463910",
+            "area": "7 Marla",
+            "location": "not provided"
+          },
+          {
             "title": "7 Marla House for sale in Bahria Town Phase 8, Block Ali, Rawalpindi | 1463890 | Graana.com",
             "price": "3.3 Crore",
             "bedrooms": 5,
@@ -202,6 +78,27 @@
               "https://images.graana.com/images/original/731939751b5b5fed56e7c6f2f96e11de"
             ],
             "property_id": "1463890",
+            "area": "7 Marla",
+            "location": "not provided"
+          },
+          {
+            "title": "7 Marla House for sale in Bahria Town Phase 8, Block Ali, Rawalpindi | 1463915 | Graana.com",
+            "price": "3 Crore",
+            "bedrooms": 5,
+            "kitchens": null,
+            "description": "7 Marla House for buy in Bahria Town Phase 8, Block Ali, Rawalpindi at 3 Crore with 5 beadrooms and 5 bathrooms. Visit Graana.com to call now.",
+            "url": "https://www.graana.com/property/7-marla-house-sale-bahria-town-phase-8,-block-ali-rawalpindi-1463915/",
+            "images": [
+              "https://images.graana.com/images/original/7e548a2beb1d870c6bbb28a21381bb53",
+              "https://images.graana.com/images/original/ab7b89f9d47e9d66b9583636f1ac42aa",
+              "https://images.graana.com/images/original/39d5b7901544ccd16556cd9bf15ee26d",
+              "https://images.graana.com/images/original/17727b9c2387d6d33f32fcbd3695857c",
+              "https://images.graana.com/images/original/6a253de9bbb8f59b3ee3adecd0367b1d",
+              "https://images.graana.com/images/original/4b29d3a14fda8c6e8bae5d36dfb040b1",
+              "https://images.graana.com/images/original/6931ddad2c1f98b5de7cc057f4545220",
+              "https://images.graana.com/images/original/3c692fb3afab2b85ef08f8492eb9657b"
+            ],
+            "property_id": "1463915",
             "area": "7 Marla",
             "location": "not provided"
           },
@@ -227,30 +124,338 @@
             "location": "not provided"
           }
         ],
+        "price_stats": {
+          "count_priced": 5,
+          "average_price_pkr": 31600000.0,
+          "min_price_pkr": 30000000.0,
+          "max_price_pkr": 33000000.0,
+          "average_price_human": "3.16 Crore",
+          "min_price_human": "3.00 Crore",
+          "max_price_human": "3.30 Crore"
+        },
         "mode": "search_results",
         "total_found": 5,
         "filters_applied": {
           "property_type": "house",
           "title_search_terms": [
             "houses",
+            "sale",
+            "block",
             "ali",
-            "block"
-          ],
-          "requested_count": 5
+            "in",
+            "ali"
+          ]
         }
       }
     },
     {
       "role": "user",
-      "content": "a few more",
-      "ts": "2025-08-12T21:08:23.020770"
+      "content": "whats the average cost of a 10 marla house in bahria phase 8",
+      "ts": "2025-08-13T01:02:42.431093"
     },
     {
       "role": "assistant",
-      "content": "I couldn't find any properties matching your criteria.\n\nYou might want to try:\n• Remove some filters to see more results\n• Try searching without specific location requirements\n• Ask me to show you all available properties",
-      "ts": "2025-08-12T21:08:23.104132",
+      "content": "Average price based on 867 properties matching your criteria: 3.88 Crore. Price range: 1.06 Crore – 32.50 Crore. I analyzed 867 total properties, 867 had valid pricing data. Filters applied: property type: house; location/terms: whats, average, marla, house, bahria, phase, 10, marla.",
+      "ts": "2025-08-13T01:02:42.465043",
       "meta": {
-        "mode": "no_results"
+        "price_stats": {
+          "count_priced": 867,
+          "count_total_matched": 867,
+          "average_price_pkr": 38844405.997693196,
+          "min_price_pkr": 10600000,
+          "max_price_pkr": 325000000,
+          "average_price_human": "3.88 Crore",
+          "min_price_human": "1.06 Crore",
+          "max_price_human": "32.50 Crore",
+          "filters_applied": [
+            "property type: house",
+            "location/terms: whats, average, marla, house, bahria, phase, 10, marla"
+          ]
+        },
+        "mode": "average_price"
+      }
+    },
+    {
+      "role": "user",
+      "content": "show me houses with 5 bedrooms in overseas sector",
+      "ts": "2025-08-13T01:02:58.347769"
+    },
+    {
+      "role": "assistant",
+      "content": "I found 5 properties matching your criteria: All properties match your criteria: houses, 5 bedroom.",
+      "ts": "2025-08-13T01:02:58.369198",
+      "meta": {
+        "listings": [
+          {
+            "title": "10 Marla House for sale in Bahria Town Phase 8 Overseas Sector-6, Rawalpindi | 1463618 | Graana.com",
+            "price": "5 Crore",
+            "bedrooms": 5,
+            "kitchens": null,
+            "description": "10 Marla House for buy in Bahria Town Phase 8 Overseas Sector-6, Rawalpindi at 5 Crore with 5 beadrooms and 5 bathrooms. Visit Graana.com to call now.",
+            "url": "https://www.graana.com/property/10-marla-house-sale-bahria-town-phase-8-overseas-sector-6-rawalpindi-1463618/",
+            "images": [
+              "https://images.graana.com/images/original/4c59f3b8cb085f64c037bc0a46d00eac",
+              "https://images.graana.com/images/original/c680739dc1748be9804aa7e572700a13",
+              "https://images.graana.com/images/original/f274b71cc293d0c4a6133ed5c230881e",
+              "https://images.graana.com/images/original/ef0fcdf6bf87da331c00e1f92a9e9c8c",
+              "https://images.graana.com/images/original/8ba8d90359e7da165131631e1e7af3f7",
+              "https://images.graana.com/images/original/5d19785880b7a57f2c25fd80085e54dc",
+              "https://images.graana.com/images/original/3d2ca1df445666fe3a475543c0e23ff7",
+              "https://images.graana.com/images/original/94f731be8dc04eb433a70a1f2a2d6643",
+              "https://images.graana.com/images/original/ddc33eb585fe883fd97b02b4d5cac601",
+              "https://images.graana.com/images/original/d7e5748c8324757e05491a753671f28d",
+              "https://images.graana.com/images/original/ef7ecfe5bdeba854623831777450fe86",
+              "https://images.graana.com/images/original/64641003d7bca65b3f1754f9aaceb04c",
+              "https://images.graana.com/images/original/e15570eb29cc7da4974c7191747f8809",
+              "https://images.graana.com/images/original/7d7920a9093f62f71a59b7ff3fa0f0af",
+              "https://images.graana.com/images/original/7d9b328fa3709843330efde60429ee67",
+              "https://images.graana.com/images/original/8b12e561c8edc309589559d101980821",
+              "https://images.graana.com/images/original/64722cd8041f73ae4c19f1b0c4ffe52c",
+              "https://images.graana.com/images/original/b67b9c42190c3fdac2234fbcbc28a3d7",
+              "https://images.graana.com/images/original/ca3b187d5f99d44f16099876cc0a750f",
+              "https://images.graana.com/images/original/8ea405507220ef1908952b9a75384997",
+              "https://images.graana.com/images/original/640a2bf691c05d634d04402e3fbaaa2f",
+              "https://images.graana.com/images/original/e24a585f73ef3fa182a23ac268e1b5ec",
+              "https://images.graana.com/images/original/533bf83a41f0f8da0c50246b7a1f1463",
+              "https://images.graana.com/images/original/a7b1520e85060c010dcb924384d5c05c",
+              "https://images.graana.com/images/original/4b3746139b0ea0d41f95504e45300054",
+              "https://images.graana.com/images/original/c4a40dba13bfc523fcbd3fb8824a0fd2",
+              "https://images.graana.com/images/original/d24b51131ca0f7ffcd162dc5b9baff91"
+            ],
+            "property_id": "1463618",
+            "area": "10 Marla",
+            "location": "Bahria Town Phase 8 Overseas Sector-6, Rawalpindi"
+          },
+          {
+            "title": "10 Marla House for sale in Bahria Town Phase 8 Overseas Sector-2, Rawalpindi | 1458923 | Graana.com",
+            "price": "4.65 Crore",
+            "bedrooms": 5,
+            "kitchens": null,
+            "description": "10 Marla House for buy in Bahria Town Phase 8 Overseas Sector-2, Rawalpindi at 4.65 Crore with 5 beadrooms and 5 bathrooms. Visit Graana.com to call now.",
+            "url": "https://www.graana.com/property/10-marla-house-sale-bahria-town-phase-8-overseas-sector-2-rawalpindi-1458923/",
+            "images": [
+              "https://images.graana.com/images/original/8fd73ab19a64cd417262da7280d23af2",
+              "https://images.graana.com/images/original/0c5f50aaf35d33aab561e80dc3397a42",
+              "https://images.graana.com/images/original/c0698fe1841b7db251331eb501644123",
+              "https://images.graana.com/images/original/a4d1485b94be5f7def0b59b4e0bc9452",
+              "https://images.graana.com/images/original/cc930ffc32f473fa6e14fbbc8980abcf",
+              "https://images.graana.com/images/original/e4c302eb38364498b8cb68de4460d309",
+              "https://images.graana.com/images/original/8192788c03831889881565d2d2cb4a2e",
+              "https://images.graana.com/images/original/8a4cd615b6ab64ebd8c1f0da829a584a",
+              "https://images.graana.com/images/original/a5b6ad2dcab1e23147b69d3025a995e2"
+            ],
+            "property_id": "1458923",
+            "area": "10 Marla",
+            "location": "Bahria Town Phase 8 Overseas Sector-2, Rawalpindi"
+          },
+          {
+            "title": "10 Marla House for sale in Bahria Town Phase 8 Overseas Sector-3, Rawalpindi | 1471241 | Graana.com",
+            "price": "4.9 Crore",
+            "bedrooms": 5,
+            "kitchens": null,
+            "description": "10 Marla House for buy in Bahria Town Phase 8 Overseas Sector-3, Rawalpindi at 4.9 Crore with 5 beadrooms and 5 bathrooms. Visit Graana.com to call now.",
+            "url": "https://www.graana.com/property/10-marla-house-sale-bahria-town-phase-8-overseas-sector-3-rawalpindi-1471241/",
+            "images": [
+              "https://images.graana.com/images/original/ffc8c1087f60370f417e005c21ca5957",
+              "https://images.graana.com/images/original/1e53e1420ebd24be173e0de250fb52d7",
+              "https://images.graana.com/images/original/3e689b36f6026bcc1a0615f4cd532f36",
+              "https://images.graana.com/images/original/08ea7c1a92f42a05d9e9ae55e8eafbf0",
+              "https://images.graana.com/images/original/a37cb2b5ce5bfd515a1e414d28f95e8e",
+              "https://images.graana.com/images/original/4e7157307e2a4659f1ca8f14202bd5f1",
+              "https://images.graana.com/images/original/c7770ef6c6ee4aa5c03dbabf239067f5",
+              "https://images.graana.com/images/original/ac446b979f715aa909567b7d869927e8",
+              "https://images.graana.com/images/original/f5e3fa0543668d4b65f0f22dba64b3df",
+              "https://images.graana.com/images/original/feeee13e979a5e6c5021871cff948f0a"
+            ],
+            "property_id": "1471241",
+            "area": "10 Marla",
+            "location": "Bahria Town Phase 8 Overseas Sector-3, Rawalpindi"
+          },
+          {
+            "title": "10 Marla House for sale in  Bahria Town Phase 8 Overseas Sector 5, Rawalpindi | 1466452 | Graana.com",
+            "price": "5.9 Crore",
+            "bedrooms": 5,
+            "kitchens": null,
+            "description": "10 Marla House for buy in  Bahria Town Phase 8 Overseas Sector 5, Rawalpindi at 5.9 Crore with 5 beadrooms and 5 bathrooms. Visit Graana.com to call now.",
+            "url": "https://www.graana.com/property/10-marla-house-sale--bahria-town-phase-8-overseas-sector-5-rawalpindi-1466452/",
+            "images": [
+              "https://images.graana.com/images/original/2e24fb395f86cdc8adeb61bc8e71febb",
+              "https://images.graana.com/images/original/155be9e0d13280781ae0dd622af62d31",
+              "https://images.graana.com/images/original/b78f644db955b6de9d4f67719205845d",
+              "https://images.graana.com/images/original/739a17611df81ea2567f6983aa63bcb5",
+              "https://images.graana.com/images/original/37282b819205e2e546b91253c96747c7",
+              "https://images.graana.com/images/original/7cfd184e6ba074e9c8bf9e3a0afbef89",
+              "https://images.graana.com/images/original/4ca08a88dbed459fe5872d9dbd212c8c",
+              "https://images.graana.com/images/original/4ea47077700101938ce8f4cec57c14a0"
+            ],
+            "property_id": "1466452",
+            "area": "10 Marla",
+            "location": "Bahria Town Phase 8 Overseas Sector 5, Rawalpindi"
+          },
+          {
+            "title": "10 Marla House for sale in Bahria Town Phase 8 Overseas Sector-2, Rawalpindi | 1471244 | Graana.com",
+            "price": "4.5 Crore",
+            "bedrooms": 5,
+            "kitchens": null,
+            "description": "10 Marla House for buy in Bahria Town Phase 8 Overseas Sector-2, Rawalpindi at 4.5 Crore with 5 beadrooms and 5 bathrooms. Visit Graana.com to call now.",
+            "url": "https://www.graana.com/property/10-marla-house-sale-bahria-town-phase-8-overseas-sector-2-rawalpindi-1471244/",
+            "images": [
+              "https://images.graana.com/images/original/7675f2938507ba4fb8dee75e05ddd2e3",
+              "https://images.graana.com/images/original/e477add728bfbfa9283b0ed8a149918b",
+              "https://images.graana.com/images/original/1ed60cceb914eabdc364b02babaa6935",
+              "https://images.graana.com/images/original/d48f69e2e5b910dbd32009dd178636c2",
+              "https://images.graana.com/images/original/5e28a179946146aa008e8764bab823e6",
+              "https://images.graana.com/images/original/5c622fbfbc06eed445a1bfb47cf872fa",
+              "https://images.graana.com/images/original/abb0a9f6ed6bc0ed59c5a636896fc0bb",
+              "https://images.graana.com/images/original/ff17c880eaa99a87a0b9c3c412a284f1",
+              "https://images.graana.com/images/original/57e75cf9507654a01ddde09555f3bfa1"
+            ],
+            "property_id": "1471244",
+            "area": "10 Marla",
+            "location": "Bahria Town Phase 8 Overseas Sector-2, Rawalpindi"
+          }
+        ],
+        "price_stats": {
+          "count_priced": 5,
+          "average_price_pkr": 49900000.0,
+          "min_price_pkr": 45000000.0,
+          "max_price_pkr": 59000000.0,
+          "average_price_human": "4.99 Crore",
+          "min_price_human": "4.50 Crore",
+          "max_price_human": "5.90 Crore"
+        },
+        "mode": "search_results",
+        "total_found": 5,
+        "filters_applied": {
+          "bedrooms": 5,
+          "property_type": "house",
+          "title_search_terms": [
+            "houses",
+            "overseas",
+            "sector"
+          ]
+        }
+      }
+    },
+    {
+      "role": "user",
+      "content": "show me apartments for sale in bahria phase 8",
+      "ts": "2025-08-13T01:03:27.373813"
+    },
+    {
+      "role": "assistant",
+      "content": "I found 5 properties matching your criteria: All properties match your criteria: apartments.",
+      "ts": "2025-08-13T01:03:27.390805",
+      "meta": {
+        "listings": [
+          {
+            "title": "2 bedroom flat | 1446280 | Graana.com",
+            "price": "PKR 60",
+            "bedrooms": 2,
+            "kitchens": null,
+            "description": "5 Marla Flat for buy in Bahria Town Phase 8, Rawalpindi at 60 Lac with 2 beadrooms and 1 bathroom. Visit Graana.com to call now.",
+            "url": "https://www.graana.com/property/5-marla-flat-sale-bahria-town-phase-8-rawalpindi-1446280/",
+            "images": [
+              "https://images.graana.com/images/original/df185265c80fae895c31f8c72978da5a"
+            ],
+            "property_id": "1446280",
+            "area": "5 marla",
+            "location": "Bahria Town Phase 8, Rawalpindi"
+          },
+          {
+            "title": "1 bedroom flat | 1442492 | Graana.com",
+            "price": "PKR 50",
+            "bedrooms": 1,
+            "kitchens": null,
+            "description": "490 Sqft Flat for buy in Bahria Town Phase 8, Rawalpindi at 50 Lac with 1 beadroom and 1 bathroom. Visit Graana.com to call now.",
+            "url": "https://www.graana.com/property/490-sqft-flat-sale-bahria-town-phase-8-rawalpindi-1442492/",
+            "images": [
+              "https://images.graana.com/images/original/45de440ff68de00ffb42dc6df5601957",
+              "https://images.graana.com/images/original/77e3d3f1c05f1d705ba1a39123d4f4fa",
+              "https://images.graana.com/images/original/e10c319e30c1a0727295c38cdb65f1c7",
+              "https://images.graana.com/images/original/e4a5ac05415b8d71aa03d59de7b0ed33",
+              "https://images.graana.com/images/original/b6c8c019300766fe533a51d415385c07",
+              "https://images.graana.com/images/original/8b63d26319230b61882964433d00c570",
+              "https://images.graana.com/images/original/0ccb5630684af57842bf4aab930c1cf0"
+            ],
+            "property_id": "1442492",
+            "area": "490 sqft",
+            "location": "Bahria Town Phase 8, Rawalpindi"
+          },
+          {
+            "title": "1 bedroom flat | 1465182 | Graana.com",
+            "price": "PKR 60",
+            "bedrooms": 1,
+            "kitchens": null,
+            "description": "600 Sqft Flat for buy in Bahria Town Phase 8, Rawalpindi at 60 Lac with 1 beadroom and 1 bathroom. Visit Graana.com to call now.",
+            "url": "https://www.graana.com/property/600-sqft-flat-sale-bahria-town-phase-8-rawalpindi-1465182/",
+            "images": [
+              "https://images.graana.com/images/original/2f0a8c5b0c71e4120fddfd1b07d2e6b4",
+              "https://images.graana.com/images/original/1175053090cf2d26a696c4d6f27e5e0a",
+              "https://images.graana.com/images/original/0a0637596f70e6640c0ae85958b2381d",
+              "https://images.graana.com/images/original/6051d9655bffc22707eceea6d317faae",
+              "https://images.graana.com/images/original/4914090eea948be22002d26fdc7a8818"
+            ],
+            "property_id": "1465182",
+            "area": "600 sqft",
+            "location": "Bahria Town Phase 8, Rawalpindi"
+          },
+          {
+            "title": "1 bedroom flat | 1468126 | Graana.com",
+            "price": "PKR 30",
+            "bedrooms": 1,
+            "kitchens": null,
+            "description": "588 Sqft Flat for buy in Bahria Town Phase 8, Rawalpindi at 30 Lac with 1 beadroom and 1 bathroom. Visit Graana.com to call now.",
+            "url": "https://www.graana.com/property/588-sqft-flat-sale-bahria-town-phase-8-rawalpindi-1468126/",
+            "images": [
+              "https://images.graana.com/images/original/8cfc48911038abe4cf4d6fb03e4a2e4c",
+              "https://images.graana.com/images/original/b2d99a5a3477c3c1badc6b855114f147",
+              "https://images.graana.com/images/original/1b23afc2663818faeb0792d0446e4506",
+              "https://images.graana.com/images/original/4a4d897facc7230118a22c2dcfa20e45"
+            ],
+            "property_id": "1468126",
+            "area": "588 sqft",
+            "location": "Bahria Town Phase 8, Rawalpindi"
+          },
+          {
+            "title": "1 bedroom flat | 1465184 | Graana.com",
+            "price": "PKR 58",
+            "bedrooms": 1,
+            "kitchens": null,
+            "description": "600 Sqft Flat for buy in Bahria Town Phase 8, Rawalpindi at 58 Lac with 1 beadroom and 1 bathroom. Visit Graana.com to call now.",
+            "url": "https://www.graana.com/property/600-sqft-flat-sale-bahria-town-phase-8-rawalpindi-1465184/",
+            "images": [
+              "https://images.graana.com/images/original/8c5c5240c67dd454b4f51eba850e0beb",
+              "https://images.graana.com/images/original/6a8b5be922eadb74e51e596ee9d0a097",
+              "https://images.graana.com/images/original/dbf0e0da344a98b841dfd35cfa687cb9",
+              "https://images.graana.com/images/original/19af513d364a8e859160dd887e2b682d",
+              "https://images.graana.com/images/original/3b05a7b658f6b2f7f63e073239ebe860"
+            ],
+            "property_id": "1465184",
+            "area": "600 sqft",
+            "location": "Bahria Town Phase 8, Rawalpindi"
+          }
+        ],
+        "price_stats": {
+          "count_priced": 5,
+          "average_price_pkr": 51.6,
+          "min_price_pkr": 30.0,
+          "max_price_pkr": 60.0,
+          "average_price_human": "PKR 52",
+          "min_price_human": "PKR 30",
+          "max_price_human": "PKR 60"
+        },
+        "mode": "search_results",
+        "total_found": 5,
+        "filters_applied": {
+          "property_type": "apartment",
+          "title_search_terms": [
+            "apartments",
+            "sale",
+            "bahria",
+            "phase"
+          ]
+        }
       }
     }
   ]
