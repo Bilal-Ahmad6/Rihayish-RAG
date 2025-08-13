@@ -579,14 +579,40 @@ def enhanced_query_analysis(query: str) -> dict:
         words = re.findall(r'\b[a-zA-Z]+\b', query_lower)
         search_terms = [word for word in words if word not in stop_words and len(word) > 2]
         
-        # Remove price/bedroom/area related words from search terms
+        # Remove price/bedroom/area related words from search terms BUT keep area size numbers
         filter_words = {
             'crore', 'crores', 'lakh', 'lakhs', 'million', 'price', 'cost', 'under', 'below', 'above',
             'bed', 'bedroom', 'bedrooms', 'bd', 'bdr', 'room', 'rooms',
-            'marla', 'sqft', 'square', 'feet', 'kanal', 'area', 'size'
+            'sqft', 'square', 'feet', 'kanal', 'area', 'size'
         }
         
         search_terms = [word for word in search_terms if word not in filter_words]
+        
+        # Extract location/block terms with better patterns
+        location_patterns = [
+            r'\b([a-z]+)\s+block\b',  # "ali block", "xyz block"
+            r'\bblock\s+([a-z]+)\b',  # "block ali", "block xyz"
+            r'\bsector\s+([a-z0-9]+)\b',  # "sector i", "sector 1"
+            r'\bphase\s+(\d+)\b',  # "phase 8"
+            r'\bbahria\s+town\b',  # "bahria town"
+        ]
+        
+        location_terms = []
+        for pattern in location_patterns:
+            matches = re.findall(pattern, query_lower)
+            for match in matches:
+                if match and len(match) > 1:
+                    location_terms.append(match)
+        
+        # Add location terms to search terms
+        search_terms.extend(location_terms)
+        
+        # Add marla size detection (keep marla numbers as search terms)
+        marla_match = re.search(r'(\d+)\s*marla', query_lower)
+        if marla_match:
+            marla_size = marla_match.group(1)
+            search_terms.append(marla_size)
+            search_terms.append('marla')
         
         # Only keep search terms if they're meaningful
         if search_terms:
@@ -683,17 +709,69 @@ def title_based_search(processed_map: Dict[str, dict], search_terms: List[str], 
                 
             title = str(property_data.get('title', '')).lower()
             
-            # Calculate title relevance score
+            # Calculate title relevance score & track conjunctive presence with fuzzy matching
             title_score = 0
+            all_terms_present = True
+            location_field = str(property_data.get('location','')).lower()
+            
+            def fuzzy_match(term: str, text: str, threshold: float = 0.8) -> bool:
+                """Simple fuzzy matching for location names"""
+                if not term or not text:
+                    return False
+                term = term.lower().strip()
+                text = text.lower()
+                
+                # Exact match
+                if term in text:
+                    return True
+                
+                # Handle common variations
+                variations = {
+                    'ali': ['aly', 'ally'],
+                    'block': ['blk', 'bloc'],
+                    'sector': ['sec', 'sect'],
+                    'phase': ['ph'],
+                }
+                
+                # Check variations
+                for base, variants in variations.items():
+                    if term == base and any(v in text for v in variants):
+                        return True
+                    if term in variants and base in text:
+                        return True
+                
+                # Character-based similarity for typos
+                if len(term) >= 3:
+                    # Simple character overlap ratio
+                    common_chars = sum(1 for c in term if c in text)
+                    similarity = common_chars / len(term)
+                    if similarity >= threshold:
+                        return True
+                
+                return False
+            
             if search_terms and isinstance(search_terms, list):
                 for term in search_terms:
-                    if term and isinstance(term, str):
-                        # Exact word matches get higher score
-                        if f" {term.lower()} " in f" {title} ":
-                            title_score += 2
-                        # Partial matches get lower score
-                        elif term.lower() in title:
-                            title_score += 1
+                    if not term or not isinstance(term, str):
+                        continue
+                    t = term.lower()
+                    
+                    # Check presence in title or location with fuzzy matching
+                    in_title_exact = f" {t} " in f" {title} "
+                    in_title_partial = t in title
+                    in_location_exact = t in location_field
+                    in_location_fuzzy = fuzzy_match(t, location_field) or fuzzy_match(t, title)
+                    
+                    if in_title_exact:
+                        title_score += 3  # Highest score for exact word match
+                    elif in_title_partial:
+                        title_score += 2  # Medium score for partial match
+                    elif in_location_exact:
+                        title_score += 2  # Good score for location match
+                    elif in_location_fuzzy:
+                        title_score += 1  # Lower score for fuzzy match
+                    else:
+                        all_terms_present = False
             
             # Apply filters with robust error handling
             passes_filters = True
@@ -806,24 +884,13 @@ def title_based_search(processed_map: Dict[str, dict], search_terms: List[str], 
             
             # Only include properties that pass all filters
             if passes_filters:
-                # If no search terms provided or search terms are empty, include all filtered properties
-                # If search terms provided, require title match OR if no title matches found, include anyway
-                include_property = False
-                
-                if not search_terms or len(search_terms) == 0:
-                    # No search terms, include all filtered properties
-                    include_property = True
-                elif title_score > 0:
-                    # Title matches search terms
-                    include_property = True
-                else:
-                    # Title doesn't match, but we might still want to include it
-                    # if the filters are very specific (like price + property type)
-                    filter_count = len([k for k in filters.keys() if k != 'title_search_terms'])
-                    if filter_count >= 2:  # Multiple specific filters
-                        include_property = True
-                
-                if include_property:
+                # Conjunctive requirement: if search terms exist, all must be present somewhere
+                if search_terms and not all_terms_present:
+                    continue
+                # Score must be >0 if search terms used (ensures at least one meaningful match field)
+                if search_terms and title_score == 0:
+                    continue
+                try:
                     try:
                         price_for_sorting = property_data.get('price_numeric_pkr', 0)
                         if not price_for_sorting:
@@ -838,6 +905,8 @@ def title_based_search(processed_map: Dict[str, dict], search_terms: List[str], 
                     except Exception:
                         # If there's an error adding the property, skip it but continue
                         continue
+                except Exception:
+                    continue
         
         # Sort by title relevance score (highest first), then by price (lowest first)
         try:
@@ -1577,6 +1646,143 @@ def rag_infer(
             out["listings"] = []
             out["suggestions"] = suggestions
             return out
+
+        # SPECIAL CASE: average price / cost queries should produce ONLY a statistical summary
+        ql = query.lower()
+        if any(k in ql for k in ["average", "avg", "mean"]) and any(k in ql for k in ["price", "cost", "rate"]):
+            # Re-filter the *entire* processed_map based on detected filters (area size, block, property type, bedrooms)
+            matched_full: List[dict] = []
+            
+            def fuzzy_match_avg(term: str, text: str, threshold: float = 0.8) -> bool:
+                """Fuzzy matching for average calculations"""
+                if not term or not text:
+                    return False
+                term = term.lower().strip()
+                text = text.lower()
+                
+                if term in text:
+                    return True
+                
+                # Common variations for locations
+                variations = {
+                    'ali': ['aly', 'ally'],
+                    'block': ['blk', 'bloc'],
+                    'sector': ['sec', 'sect'],
+                    'phase': ['ph'],
+                }
+                
+                for base, variants in variations.items():
+                    if term == base and any(v in text for v in variants):
+                        return True
+                    if term in variants and base in text:
+                        return True
+                
+                return False
+            
+            for pid, prop in processed_map.items():
+                try:
+                    title_lower = str(prop.get('title','')).lower()
+                    location_lower = str(prop.get('location','')).lower()
+                    include = True
+                    
+                    # Property type filter
+                    if 'property_type' in filters:
+                        pt = filters['property_type']
+                        if pt == 'house' and not any(w in title_lower for w in ['house','villa','home','bungalow','marla']):
+                            include = False
+                        if pt == 'apartment' and not any(w in title_lower for w in ['apartment','flat','unit']):
+                            include = False
+                    
+                    # Bedrooms
+                    if include and 'bedrooms' in filters:
+                        try:
+                            req_beds = int(filters['bedrooms'])
+                            b = prop.get('bedrooms')
+                            if isinstance(b,str) and b.isdigit():
+                                b = int(b)
+                            if b != req_beds:
+                                include = False
+                        except:
+                            include = False
+                    
+                    # ALL search terms must match (with fuzzy tolerance)
+                    search_terms = filters.get('title_search_terms', [])
+                    if include and search_terms:
+                        for term in search_terms:
+                            term_found = (
+                                term.lower() in title_lower or 
+                                term.lower() in location_lower or
+                                fuzzy_match_avg(term, title_lower) or 
+                                fuzzy_match_avg(term, location_lower)
+                            )
+                            if not term_found:
+                                include = False
+                                break
+                    
+                    if include:
+                        matched_full.append(prop)
+                except Exception:
+                    continue
+
+            # Parse numeric prices
+            prices = []
+            for prop in matched_full:
+                pv = prop.get('price_numeric_pkr') or prop.get('price_numeric')
+                try:
+                    if pv and float(pv) > 0:
+                        prices.append(float(pv))
+                except Exception:
+                    continue
+
+            if prices:
+                import statistics
+                avg_p = statistics.mean(prices)
+                min_p = min(prices)
+                max_p = max(prices)
+                def fmt(v):
+                    if v >= 10_000_000:
+                        return f"{v/10_000_000:.2f} Crore"
+                    if v >= 100_000:
+                        return f"{v/100_000:.2f} Lakh"
+                    return f"PKR {v:,.0f}"
+                
+                # Create detailed filter description
+                applied_filters = []
+                if filters.get('property_type'):
+                    applied_filters.append(f"property type: {filters['property_type']}")
+                if filters.get('bedrooms'):
+                    applied_filters.append(f"bedrooms: {filters['bedrooms']}")
+                if filters.get('title_search_terms'):
+                    applied_filters.append(f"location/terms: {', '.join(filters['title_search_terms'])}")
+                
+                filter_desc = "; ".join(applied_filters) if applied_filters else "no specific filters"
+                
+                out['answer'] = (
+                    f"Average price based on {len(prices)} properties matching your criteria: {fmt(avg_p)}. "
+                    f"Price range: {fmt(min_p)} – {fmt(max_p)}. "
+                    f"I analyzed {len(matched_full)} total properties, {len(prices)} had valid pricing data. "
+                    f"Filters applied: {filter_desc}."
+                )
+                out['mode'] = 'average_price'
+                out['listings'] = []  # Suppress listings for pure average queries
+                out['price_stats'] = {
+                    'count_priced': len(prices),
+                    'count_total_matched': len(matched_full),
+                    'average_price_pkr': avg_p,
+                    'min_price_pkr': min_p,
+                    'max_price_pkr': max_p,
+                    'average_price_human': fmt(avg_p),
+                    'min_price_human': fmt(min_p),
+                    'max_price_human': fmt(max_p),
+                    'filters_applied': applied_filters
+                }
+                return out
+            else:
+                search_desc = ", ".join(filters.get('title_search_terms', [])) if filters.get('title_search_terms') else "your criteria"
+                out['answer'] = f"I found {len(matched_full)} properties matching {search_desc}, but none had valid pricing data to compute an average. Try broadening the search criteria."
+                out['mode'] = 'average_price_no_data'
+                out['listings'] = []
+                return out
         
         # Mild+ shuffling: keep very top result fixed, shuffle remainder of top-score group,
         # then lightly shuffle remaining tail while preserving overall relevance tiers.
@@ -1636,6 +1842,63 @@ def rag_infer(
         
         # Format properties for frontend with error handling
         formatted_listings = []
+        numeric_prices = []  # collected in PKR
+
+        def _parse_price_to_pkr(raw: str):  # lightweight heuristic parser
+            if not raw:
+                return None
+            txt = str(raw).lower().replace(',', ' ').replace('pkr', '').strip()
+            # Normalize multiple spaces
+            while '  ' in txt:
+                txt = txt.replace('  ', ' ')
+            # Combined pattern e.g. '1 crore 25 lakh'
+            try:
+                import re
+                crore_part = 0.0
+                lakh_part = 0.0
+                million_part = 0.0
+                # 1 crore 25 lakh
+                m_combo = re.findall(r'(\d+(?:\.\d+)?)\s*(crore|lakh|million)', txt)
+                if m_combo:
+                    for num, unit in m_combo:
+                        val = float(num)
+                        if unit == 'crore':
+                            crore_part += val
+                        elif unit == 'lakh':
+                            lakh_part += val
+                        elif unit == 'million':
+                            million_part += val
+                    total = crore_part * 10_000_000 + lakh_part * 100_000 + million_part * 1_000_000
+                    if total > 0:
+                        return total
+                # Single value with unit
+                m_single = re.match(r'^(\d+(?:\.\d+)?)\s*(crore|lakh|million)$', txt)
+                if m_single:
+                    val = float(m_single.group(1))
+                    unit = m_single.group(2)
+                    if unit == 'crore':
+                        return val * 10_000_000
+                    if unit == 'lakh':
+                        return val * 100_000
+                    if unit == 'million':
+                        return val * 1_000_000
+                # Plain number (assume PKR) possibly with decimals
+                m_plain = re.match(r'^(\d+(?:\.\d+)?)$', txt)
+                if m_plain:
+                    return float(m_plain.group(1))
+            except Exception:  # pragma: no cover
+                return None
+            return None
+
+        def _format_price_from_pkr(val: float) -> str:
+            if val >= 10_000_000:  # Crore threshold
+                return f"{val / 10_000_000:.2f} Crore"
+            if val >= 100_000:  # Lakh threshold
+                return f"{val / 100_000:.2f} Lakh"
+            if val >= 1_000_000:  # Million (fallback if metric style needed)
+                return f"{val / 1_000_000:.2f} Million"
+            return f"PKR {val:,.0f}"
+
         for prop in properties:
             try:
                 formatted_listing = {
@@ -1651,6 +1914,10 @@ def rag_infer(
                     'location': str(prop.get('location', ''))
                 }
                 formatted_listings.append(formatted_listing)
+                # Attempt to parse numeric price for stats
+                p_parsed = _parse_price_to_pkr(prop.get('price'))
+                if p_parsed and p_parsed > 0:
+                    numeric_prices.append(p_parsed)
             except Exception:
                 # If formatting a property fails, skip it but continue with others
                 continue
@@ -1660,6 +1927,35 @@ def rag_infer(
         out["mode"] = "search_results"
         out["total_found"] = len(properties)
         out["filters_applied"] = filters
+
+        # Price statistics
+        if numeric_prices:
+            import statistics
+            try:
+                avg_val = statistics.mean(numeric_prices)
+                min_val = min(numeric_prices)
+                max_val = max(numeric_prices)
+                price_stats = {
+                    'count_priced': len(numeric_prices),
+                    'average_price_pkr': avg_val,
+                    'min_price_pkr': min_val,
+                    'max_price_pkr': max_val,
+                    'average_price_human': _format_price_from_pkr(avg_val),
+                    'min_price_human': _format_price_from_pkr(min_val),
+                    'max_price_human': _format_price_from_pkr(max_val)
+                }
+                out['price_stats'] = price_stats
+                # If user asked about price/cost/average add a summary line
+                ql = query.lower()
+                if any(k in ql for k in ['average', 'avg', 'price', 'cost', 'range']):
+                    summary_line = (
+                        f"\nAverage price: {price_stats['average_price_human']} (range {price_stats['min_price_human']} – {price_stats['max_price_human']}, "
+                        f"based on {price_stats['count_priced']} priced listings)."
+                    )
+                    if summary_line not in out['answer']:
+                        out['answer'] = out['answer'].rstrip() + summary_line
+            except Exception:
+                pass
         
         return out
         
