@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🏡 Property Guru RAG
+# 🏡 Rihayish - RAG
 An AI‑powered Real Estate Assistant for Bahria Town Phase 8 (extensible) with Retrieval Augmented Generation, semantic + rule filters, structured property enrichment, image handling, and Gemini LLM integration.
 
 </div>
